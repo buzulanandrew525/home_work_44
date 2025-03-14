@@ -1,22 +1,30 @@
-import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement } from "../redux/slices/counterSlice";
-import { RootState } from "../redux/store";
-const Counters = () => {
-  const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.counter.value);
+import type { RootState } from '../redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment } from '../redux/slices/counterSlice';
 
-  const handleIncrement = () => {
-    dispatch(increment())
-  }
-  const handleDecrement = () => {
-    dispatch(decrement())
-  }
+export function Counters() {
+  const count = useSelector((state: RootState) => state.counter.value)
+  const dispatch = useDispatch()
 
-  return <div>
-    <h1>Counter: {data}</h1>
-    <button onClick={handleIncrement}>Increment</button>
-    <button onClick={handleDecrement}>Descrement</button>
-  </div>;
+  return (
+    <div>
+        <h3>Redux Tolkit: {count}</h3>
+      <div>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
+        >
+          Increment
+        </button>
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
+      </div>
+    </div>
+  )
 };
 
 export default Counters;
